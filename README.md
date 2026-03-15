@@ -1,32 +1,32 @@
-Vimrc
+# vimrc
 
+🌐 English | [简体中文](./README.zh-CN.md)
 
-----------
-This is a config of vim.The version of vim should be 7.4 or larger.
+A minimal, clean Vim configuration for daily use.
 
-The orginal author is Amir Salihefendic, and on the basis of this i add some mapping keys,and support 2 spaces instead of 1 tab,when coding javascript.
+## Features
 
-# Mapping Keys #
-- Insert Mode
-	- Ctrl+E Delete Line
-	- Ctrl+D Copy Line
-	- Ctrl+L Enter a new line
+- Line numbers with relative numbering
+- Cursor line highlighting
+- 2-space indentation with smart indent
+- Smart case-sensitive search with highlighting
+- Persistent undo history
+- System clipboard integration
+- No line wrapping with scroll offset
+- Syntax highlighting and filetype detection
+- JSON file indent support
 
-----------
-okay，the following are some mapping keys i often use
+> Note: `clipboard=unnamedplus` requires Vim compiled with `+clipboard` (macOS users should install Vim via Homebrew).
 
-- View Mode
-	- d delete line
-- Insert Mode
-	- Ctrl+N show tips/show defined keywords
+## Installation
 
-----------
-the following are some skills i often use
+Back up your existing config and clone:
 
-- Batch Comments
-	- enter 'ctrl+v' => u keep 'view block mode'
-	- choose lines, use up/down arrow key on the keyboard
-	- enter 'Caps Lock' key,and enter i => means upper i
-	- enter comment flag(for exmaple: '#' in shell, '//' in javascript)
+```bash
+mv ~/.vimrc ~/.vimrc.bak
+git clone https://github.com/hinson0/vimrc.git ~/vimrc
+ln -s ~/vimrc/.vimrc ~/.vimrc
+mkdir -p ~/.vim/undo
+```
 
-	
+> `~/.vim/undo` is required for persistent undo.
