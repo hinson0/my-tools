@@ -24,8 +24,8 @@ Back up your existing config and clone:
 
 ```bash
 mv ~/.vimrc ~/.vimrc.bak
-git clone https://github.com/hinson0/vimrc.git ~/vimrc
-ln -s ~/vimrc/.vimrc ~/.vimrc
+git clone https://github.com/hinson0/my-tools.git ~/my-tools
+ln -s ~/my-tools/vim-config/.vimrc ~/.vimrc
 mkdir -p ~/.vim/undo
 ```
 
