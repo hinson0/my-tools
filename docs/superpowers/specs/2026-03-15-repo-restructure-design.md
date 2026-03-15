@@ -22,7 +22,7 @@ my-tools/
 ├── claude-code/
 │   └── .CLAUDE.local.md
 └── docs/
-    └── superpowers/
+    └── superpowers/   (specs/, plans/ 等已有内容保持不变)
 ```
 
 ## 实施顺序
@@ -37,7 +37,11 @@ my-tools/
 
 ## 注意事项
 
-- README 中的语言切换链接为相对路径，移入同一目录后无需修改
-- README 中的 `git clone` 地址需更新为 `hinson0/my-tools`
+- README 中的语言切换链接为相对路径（`./README.zh-CN.md` 等），移入同一目录后无需修改
+- README 中的安装命令需全部更新：
+  - `git clone` URL：`hinson0/vimrc.git ~/vimrc` → `hinson0/my-tools.git ~/my-tools`
+  - `ln -s` 路径：`~/vimrc/.vimrc` → `~/my-tools/vim-config/.vimrc`
+- 现有用户迁移：`.vimrc` 移入子目录后，已有的符号链接会断裂，README 安装命令已反映新路径，用户需重新执行安装步骤
 - GitHub 会自动为旧仓库名设置 301 重定向
-- 根目录暂不创建 README
+- 根目录暂不创建 README（后续按需补充）
+- `claude-code/.CLAUDE.local.md` 为空占位文件，后续用于存放 Claude Code 的本地项目配置
