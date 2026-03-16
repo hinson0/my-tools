@@ -1,2 +1,4 @@
 .claude/worktrees/
 *.local.md
+.DS_Store
+node_modules/
