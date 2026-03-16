@@ -1,6 +1,5 @@
 " ===== 基础显示 =====
 set number              " 显示行号
-set relativenumber      " 相对行号（强烈推荐）
 set cursorline          " 高亮当前行
 
 " ===== 编辑体验 =====
