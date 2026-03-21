@@ -9,14 +9,17 @@
 - 之前会话中的所有消息、工具调用结果和交互记录都会恢复到上下文窗口中
 - 使用相同的 session ID，新消息追加到已有的对话文件中
 - 从上次离开的地方继续
+- 如果对话接近上下文窗口上限，系统会自动压缩早期消息（不会丢失，只是被摘要化）
 
 ### 2. 指令和内存文件
 
 | 内容 | 说明 |
 |------|------|
-| CLAUDE.md 文件 | 项目级、用户级、组织级的所有 CLAUDE.md 全部重新加载 |
+| CLAUDE.md / .CLAUDE.local.md | 项目级、用户级、组织级全部**重新读取最新版本**（exit 前的修改会生效） |
 | 自动记忆 (MEMORY.md) | 前 200 行加载到上下文，详细的主题文件按需加载 |
 | `.claude/rules/` 规则 | 根据当前操作的文件路径条件加载 |
+
+> **实用场景**：如果在 exit 前修改了 `.CLAUDE.local.md`（如添加新规则），resume 后会读到最新内容。
 
 ### 3. SessionStart Hooks
 
@@ -34,22 +37,30 @@
 - Hook 可通过 stdout 注入动态上下文
 - 可通过 `CLAUDE_ENV_FILE` 设置整个会话的环境变量
 
+### 4. Plugin Hooks
+
+- 注册了 SessionStart 的 Plugin hooks 也会在 resume 时重新执行
+- 例如 Vercel plugin 的 `inject-claude-md.mjs` 会在每次 resume 时重新注入生态知识图谱
+- Plugin 的 PreToolUse hooks（如 skill 自动注入）会在后续工具调用时正常触发
+
 ## 不会保留的内容
 
-### 会话级权限 (Session-scoped Permissions)
-
-- 之前会话中批准的工具使用权限**不会**保留
-- Resume 后需要重新批准（这是安全机制）
+| 内容 | 说明 |
+|------|------|
+| 会话级权限 | 之前批准的工具使用权限需要重新批准（安全机制） |
+| PreToolUse skill 注入的去重状态 | 部分 plugin 按 session 去重，resume 后可能重新注入已注入过的 skill |
 
 ## Resume vs 全新启动的区别
 
 | 方面 | 全新启动 (`startup`) | Resume (`resume`) |
 |------|---------------------|-------------------|
 | 对话历史 | 空 | 完整恢复 |
-| CLAUDE.md | 加载 | 重新加载 |
+| CLAUDE.md | 加载 | 重新加载（读取最新版本） |
 | MEMORY.md | 加载 | 重新加载 |
 | SessionStart hooks | 触发 (source=startup) | 触发 (source=resume) |
+| Plugin hooks | 触发 | 重新触发 |
 | 工具权限 | 需批准 | 需重新批准 |
+| 上下文压缩 | 无 | 长对话可能触发自动压缩 |
 
 ## 相关命令
 
